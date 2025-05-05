@@ -14,6 +14,7 @@ userSchema.pre("save", async function() {
   this.email = this.email.toLowerCase();
   this.password = await bcrypt.hash(this.password, 2);
 });
+
 const model = mongoose.model("user", userSchema);
 module.exports = model;
 

@@ -46,7 +46,6 @@ const login = (req, res) => {
     const email = req.body.email.toLowerCase();
     userModel
       .findOne({ email })
-      .populate("role", "-_id -__v")
       .then(async (result) => {
         if (!result) {
           return res.status(403).json({
@@ -65,6 +64,7 @@ const login = (req, res) => {
           const payload = {
             userId: result._id,
             author: result.firstName,
+            role: result.role,
            
           };
   
