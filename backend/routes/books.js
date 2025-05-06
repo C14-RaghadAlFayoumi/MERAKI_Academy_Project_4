@@ -1,7 +1,9 @@
 const express = require("express");
 
 // Import roles controller
-const {creatBook,getBookById ,getAllBooks,getBookByAuthor ,getBookByAuthorId} = require("../controllers/books");
+const {creatBook,getBookById ,getAllBooks,getBookByAuthor ,getBookByAuthorId , updateBookById,
+    deleteBookByAuthor,
+} = require("../controllers/books");
 const {createNewComment}= require("../controllers/comments")
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
@@ -21,5 +23,7 @@ booksRouter.post(
     authorization("create comments"),
     createNewComment
   );
+booksRouter.put("/:id",updateBookById) ;
+booksRouter.delete("/:id/author",deleteBookByAuthor) 
 
 module.exports = booksRouter
