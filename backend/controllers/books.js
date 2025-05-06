@@ -1,8 +1,7 @@
 const booksModel = require("../models/books");
+
 const creatBook = (req,res)=>{
 const { title,description,author,comments}=req.body;
-console.log(title,description,author);
-
 const newBook = new booksModel({
     title,description,author,comments
   });
@@ -24,18 +23,21 @@ const newBook = new booksModel({
     });
 };
 
-
 const getAllBooks = (req, res) => {
-    const userId = req.token.userId;
+  const userId = req.token.userId;
+  //.UserId;
     booksModel
       .find()
+      .populate("comments")
       .exec()
       .then((books) => {
         if (books.length) {
           res.status(200).json({
             success: true,
-            message: `All the books`,
-            userId: userId,
+            message: `get All the books`,
+           // userId:token
+           userId: userId,
+           books: books,
             
           });
         } else {
@@ -53,22 +55,50 @@ const getAllBooks = (req, res) => {
         });
       });
   };
-const getBookByAuthor = (req, res) => { 
-let authorId = req.query.author;
+  const getBookById = (req, res) => {
+    let id = req.params.id;
+    booksModel
+      .findById(id)
+      .populate("author", "firstName -_id")
+      .exec()
+      .then((books) => {
+        if (!books) {
+          return res.status(404).json({
+            success: false,
+            message: `The book with id => ${id} not found`,
+          });
+        }
+        res.status(200).json({
+          success: true,
+          message: `The book ${id} `,
+          books:books
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: `Server Error`,
+          err: err.message,
+        });
+      });
+    }
 
-articlesModel
+const getBookByAuthor = (req, res) => { 
+let authorId = req.params.author;
+
+booksModel
   .find({ author: authorId })
-  .then((articles) => {
-    if (!articles.length) {
+  .then((books) => {
+    if (!books.length) {
       return res.status(404).json({
         success: false,
-        message: `The author: ${authorId} has no articles`,
+        message: `The author: ${authorId} has no books`,
       });
     }
     res.status(200).json({
       success: true,
       message: `All the articles for the author: ${authorId}`,
-      articles: articles,
+    
     });
   })
   .catch((err) => {
@@ -91,5 +121,5 @@ articlesModel
   
   
 module.exports = {
-    creatBook,getAllBooks,getBookByAuthor,
+    creatBook,getAllBooks,getBookById,getBookByAuthor,
   };

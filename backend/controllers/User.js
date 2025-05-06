@@ -46,6 +46,7 @@ const login = (req, res) => {
     const email = req.body.email.toLowerCase();
     userModel
       .findOne({ email })
+      .populate("role")
       .then(async (result) => {
         if (!result) {
           return res.status(403).json({
@@ -69,7 +70,7 @@ const login = (req, res) => {
           };
   
           const options = {
-            expiresIn: "60m",
+            expiresIn: "7d",
           };
           const token = jwt.sign(payload, process.env.SECRET, options);
           res.status(200).json({
@@ -82,6 +83,8 @@ const login = (req, res) => {
         }
       })
       .catch((err) => {
+        console.log(err);
+        
         res.status(500).json({
           success: false,
           message: `Server Error`,
