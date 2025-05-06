@@ -1,7 +1,8 @@
 const booksModel = require("../models/books");
 
 const creatBook = (req,res)=>{
-const { title,description,author,comments}=req.body;
+const { title,description,comments}=req.body;
+const author = req.token.userId;
 const newBook = new booksModel({
     title,description,author,comments
   });
@@ -84,11 +85,20 @@ const getAllBooks = (req, res) => {
     }
 
 const getBookByAuthor = (req, res) => { 
+  //console.log( req.params.author);
+  
 let authorId = req.params.author;
 
 booksModel
-  .find({ author: authorId })
+  // .find({ author: authorId })
+  .find().populate({
+    path: 'author',
+    match: {firstName: req.params.author }
+  })
   .then((books) => {
+    // console.log(books)
+    const filtered = books.filter(book=> book.author!== null &&book.author.firstName ===req.params.author)
+    //console.log(filtered)
     if (!books.length) {
       return res.status(404).json({
         success: false,
@@ -98,6 +108,7 @@ booksModel
     res.status(200).json({
       success: true,
       message: `All the articles for the author: ${authorId}`,
+      books:books
     
     });
   })
@@ -109,7 +120,34 @@ booksModel
     });
   });
 };
-
+const getBookByAuthorId = (req, res) => {
+  let id = req.params.id;
+  booksModel
+    .findById(id)
+    .populate("author", "firstName -_id")
+    .exec()
+    .then((books) => {
+      if (!books) {
+        return res.status(404).json({
+          success: false,
+          message: `The article with id => ${id} not found`,
+        });
+      }
+      res.status(200).json({
+        success: true,
+        message: `The article ${id} `,
+        books:books
+        
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
+};
 
 
 
@@ -121,5 +159,5 @@ booksModel
   
   
 module.exports = {
-    creatBook,getAllBooks,getBookById,getBookByAuthor,
+    creatBook,getAllBooks,getBookById,getBookByAuthor,getBookByAuthorId
   };
