@@ -1,15 +1,21 @@
-import React, { useState} from "react";
-import "./App.css";
+import React, { useState } from "react";
+import "../../App.css";
 //import { Register } from "../../../../backend/controllers/User";
 
 const Register = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [age, setAge] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <>
       <div className="register">
         <label>FirstName</label>
         <input
           type="text"
-          placeholder="firstName"
+          
           onChange={(e) => {
             setFirstName(e.target.value);
           }}
@@ -17,7 +23,7 @@ const Register = () => {
         <label>LastName</label>
         <input
           type="text"
-          placeholder="lastName"
+          //placeholder="lastName"
           onChange={(e) => {
             setLastName(e.target.value);
           }}
@@ -25,7 +31,7 @@ const Register = () => {
         <label>Age</label>
         <input
           type="number"
-          placeholder="age"
+         // placeholder="age"
           onChange={(e) => {
             setAge(e.target.value);
           }}
@@ -33,7 +39,7 @@ const Register = () => {
         <label>Eamil</label>
         <input
           type="email"
-          placeholder="email"
+          //placeholder="email"
           onChange={(e) => {
             setEmail(e.target.value);
           }}
@@ -41,12 +47,12 @@ const Register = () => {
         <label>Password</label>
         <input
           type="password"
-          placeholder="password"
+         // placeholder="password"
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         ></input>
-       
+        <button>REGISTER</button>
       </div>
     </>
   );

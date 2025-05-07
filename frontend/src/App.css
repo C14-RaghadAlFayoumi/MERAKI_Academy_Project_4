@@ -1,4 +1,12 @@
-.App {
+.App h1 {
+  color: whitesmoke;
+  font-style: italic;
   text-align: left;
+  background-color: #c28585;
+  padding: 20px;
+  background-image: linear-gradient(to right, rgb(8, 10, 117), rgba(140, 219, 243, 0.863));
+  
+}
+.reqister{
 
 }
