@@ -1,10 +1,10 @@
 const booksModel = require("../models/books");
 
 const creatBook = (req,res)=>{
-const { title,description,comments}=req.body;
+const { title,description}=req.body;
 const author = req.token.userId;
 const newBook = new booksModel({
-    title,description,author,comments
+    title,description,author
   });
   newBook
     .save()
@@ -92,13 +92,10 @@ let authorId = req.params.author;
 
 booksModel
   // .find({ author: authorId })
-  .find().populate({
-    path: 'author',
-    match: {firstName: req.params.author }
-  })
+  .find({author:authorId})
   .then((books) => {
     // console.log(books)
-    const filtered = books.filter(book=> book.author!== null &&book.author.firstName ===req.params.author)
+   // const filtered = books.filter(book=> book.author!== null &&book.author.firstName ===req.params.author)
     //console.log(filtered)
     if (!books.length) {
       return res.status(404).json({
