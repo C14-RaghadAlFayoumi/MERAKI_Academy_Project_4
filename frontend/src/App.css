@@ -1,3 +1,4 @@
+
 .App h1 {
   color: whitesmoke;
   font-style: italic;
@@ -8,5 +9,42 @@
   
 }
 .reqister{
+background: white;
+width: 100px;
+padding: 15px 20px;
+border-radius: 5px;
+box-shadow: 0 2px 5px rgb(0,0,0,0.1);
 
+
+}
+.box{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 15px;
+  
+
+}
+input{
+  flex: .3;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+
+}
+button{
+  color: white;
+  padding: 10px;
+  background-color:rgb(4, 5, 5);
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#cent {
+  position:absolute;
+  top:35%;
+  left:50%;
+  margin-top:-50px; 
+  margin-left:-50px; 
 }

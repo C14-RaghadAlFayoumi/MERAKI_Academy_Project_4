@@ -11,7 +11,9 @@ const Register = () => {
 
   return (
     <>
+    <div id="cent">
       <div className="register">
+        <div className="box">
         <label>FirstName</label>
         <input
           type="text"
@@ -27,7 +29,8 @@ const Register = () => {
           onChange={(e) => {
             setLastName(e.target.value);
           }}
-        ></input>
+        ></input></div>
+        <div className="box">
         <label>Age</label>
         <input
           type="number"
@@ -44,6 +47,8 @@ const Register = () => {
             setEmail(e.target.value);
           }}
         ></input>
+        </div>
+        <div className="box">
         <label>Password</label>
         <input
           type="password"
@@ -51,8 +56,9 @@ const Register = () => {
           onChange={(e) => {
             setPassword(e.target.value);
           }}
-        ></input>
+        ></input></div>
         <button>REGISTER</button>
+      </div>
       </div>
     </>
   );
