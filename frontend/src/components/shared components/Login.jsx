@@ -1,29 +1,49 @@
-import React from 'react'
-import "./App.css";
-import { login } from '../../../../backend/controllers/User';
-const login = () => {
+import React , {useState} from 'react'
+// import "./App.css";
+import { useNavigate } from "react-router-dom";
+import "../../App.css";
+import axios from 'axios';
+const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate =useNavigate()
+    const loginButton=()=>{
+        axios.post("http://localhost:5000/user/login",{email,password}).then((response) => {
+         console.log(response.data);
+         if(response.data){
+             navigate("/Homepage")
+         }
+        }).catch((err)=>{
+         console.log(err);
+         
+        })
+        ;}
+
   
     return (
-      <div>
-        <p>Email: {email}</p>
-        <p>Password: {password}</p>
+        <>
+        <div id="cent2">
+      <div className='login'>
+        <div className='box2'>
+        <label>Email:</label>
         <input
           type="email"
-          placeHolder="Email"
           onChange={(e) => {
             setEmail(e.target.value);
           }}
         />
+        <label>Password:</label>
         <input
           type="password"
-          placeHolder="Password"
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         />
+        <button onClick={loginButton}>LOGIN</button>
+        </div>
       </div>
+      </div>
+      </>
     );
   };
   
@@ -32,4 +52,4 @@ const login = () => {
 
 
 
-export default login
+export default Login

@@ -1,13 +1,34 @@
-import React, { useState } from "react";
+import React, { useState,UserContext } from "react";
 import "../../App.css";
+import axios from "axios"
 //import { Register } from "../../../../backend/controllers/User";
-
+import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+const navigate =useNavigate()
+ //const { setUser } = useContext(UserContext);
+  const regesterButton=()=>{
+   axios.post("http://localhost:5000/user/register",{firstName,lastName,age,email,password}).then((response) => {
+    console.log(response.data);
+    if(response.data){
+        navigate("/Login")
+    }
+   }).catch((err)=>{
+    console.log(err);
+    
+   })
+   ;}
+ 
+
+
+  //axios.get("http://localhost:5000/register"), {
+    //headers: {
+     // authorization: `Bearer ${token}`,
+   // }
 
   return (
     <>
@@ -57,7 +78,7 @@ const Register = () => {
             setPassword(e.target.value);
           }}
         ></input></div>
-        <button>REGISTER</button>
+        <button onClick={regesterButton}>REGISTER</button>
       </div>
       </div>
     </>

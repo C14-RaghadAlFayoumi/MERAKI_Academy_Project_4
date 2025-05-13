@@ -1,10 +1,10 @@
 const booksModel = require("../models/books");
 
 const creatBook = (req,res)=>{
-const { title,description}=req.body;
+const { title,description,img}=req.body;
 const author = req.token.userId;
 const newBook = new booksModel({
-    title,description,author
+    title,description,author,img
   });
   newBook
     .save()
