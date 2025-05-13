@@ -26,7 +26,7 @@ const newBook = new booksModel({
 };
 
 const getAllBooks = (req, res) => {
-  const userId = req.token.userId;
+  //const userId = req.token.userId;
   //.UserId;
     booksModel
       .find()
@@ -38,7 +38,7 @@ const getAllBooks = (req, res) => {
             success: true,
             message: `get All the books`,
            // userId:token
-           userId: userId,
+          // userId: userId,
            books: books,
             
           });

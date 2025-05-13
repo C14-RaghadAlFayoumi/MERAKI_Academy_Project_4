@@ -12,7 +12,7 @@ const books = require("../models/books");
 
 const booksRouter = express.Router();
 
-booksRouter.get("/all",authentication,getAllBooks);
+booksRouter.get("/all",getAllBooks);
 booksRouter.get("/search_1/:id", getBookById);
 booksRouter.get("/search_2/:author", getBookByAuthor);
 booksRouter.get("/search_3/:id",getBookByAuthorId)
